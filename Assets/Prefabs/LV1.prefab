@@ -3096,9 +3096,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limits: []
-  typeMovement: 0
+  move: 0
   speedMove: 0
-  speed: 200
+  speedrotate: 0
 --- !u!1 &38990432208953153
 GameObject:
   m_ObjectHideFlags: 0
