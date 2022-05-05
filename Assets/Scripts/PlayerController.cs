@@ -5,31 +5,59 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     float time;
+
     bool isInGround;
+
     Animator animator;
-    [SerializeField, Range(0, 10)] float speed;
-    [SerializeField] float jumpPower;
+
+    [SerializeField, Range(0, 10)]
+    float speed;
+
+    [SerializeField]
+    float jumpPower;
+
     Rigidbody2D rigidBody;
+
     float horizontalDelta;
-    [SerializeField] Transform[] checkPoints;
-    [SerializeField] LayerMask mapLayerMask;
+
+    [SerializeField]
+    Transform[] checkPoints;
+
+    [SerializeField]
+    LayerMask mapLayerMask;
+
+    public GameObject scoretext;
+
+    public int score = 1;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+
     void Update()
     {
         horizontalDelta = 0;
-        isInGround = Physics2D.OverlapArea(checkPoints[0].position, checkPoints[1].position, mapLayerMask);
+        isInGround =
+            Physics2D
+                .OverlapArea(checkPoints[0].position,
+                checkPoints[1].position,
+                mapLayerMask);
         if (isInGround)
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)
+            )
             {
                 Jump();
             }
         }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (
+            Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.LeftArrow) ||
+            Input.GetKey(KeyCode.D) ||
+            Input.GetKey(KeyCode.RightArrow)
+        )
         {
             horizontalDelta = Input.GetAxisRaw("Horizontal");
         }
@@ -46,11 +74,13 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     void Jump()
     {
         animator.SetBool("isJump", true);
         rigidBody.velocity = new Vector3(0, jumpPower, 0);
     }
+
     private void FixedUpdate()
     {
         if (horizontalDelta != 0)
@@ -70,8 +100,16 @@ public class PlayerController : MonoBehaviour
             {
                 transform.localScale = Vector3.one * 0.5f;
             }
-            rigidBody.velocity = new Vector2(horizontalDelta * speed, rigidBody.velocity.y);
+            rigidBody.velocity =
+                new Vector2(horizontalDelta * speed, rigidBody.velocity.y);
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("coins"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }

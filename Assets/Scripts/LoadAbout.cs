@@ -6,6 +6,6 @@ public class LoadAbout : MonoBehaviour
 {
     public void Load()
     {
-        Application.LoadLevel("Level1");
+        Application.LoadLevel("About");
     }
 }

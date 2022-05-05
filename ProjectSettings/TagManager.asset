@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Respawn Position
+  - PickUp
+  - coins
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - UI
   - Map
   - Trap
-  - 
+  - coins
   - 
   - 
   - 
